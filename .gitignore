@@ -34,8 +34,8 @@ models/*.pkl
 !models/.gitkeep
 
 # Data
-data/
-*.csv
+# data/
+# *.csv
 
 # Logs
 *.log

@@ -1,5 +1,8 @@
 # Lab 3: Testing & CI/CD for ML Systems
 
+![CI](https://github.com/superda10/https-github.com-superda-ddm501-lab3-movie-rating/actions/workflows/ci.yml/badge.svg)
+
+
 ## Overview
 
 Implement comprehensive testing strategies and CI/CD pipelines for the movie rating prediction system to ensure quality and automate deployment.
@@ -135,6 +138,18 @@ Complete the following files:
 - [ ] `.github/workflows/ci.yml` - CI pipeline
 - [ ] `.github/workflows/cd.yml` - CD pipeline (BONUS)
 - [ ] `.pre-commit-config.yaml` - Pre-commit hooks
+
+
+## Test Strategy
+
+Hệ thống kiểm thử được chia thành 4 loại để đảm bảo chất lượng toàn diện:
+
+- **Unit tests:** Kiểm tra từng hàm/lớp riêng lẻ, đảm bảo logic nhỏ hoạt động đúng.
+- **Integration tests:** Kiểm tra sự phối hợp giữa các thành phần, đặc biệt là API endpoint.
+- **Data tests:** Đảm bảo dữ liệu đầu vào/đầu ra đúng định dạng, giá trị hợp lệ.
+- **Behavioral tests:** Kiểm tra hành vi tổng thể của mô hình (tính bất biến, tối thiểu, chiều hướng).
+
+Việc phân loại này giúp phát hiện lỗi ở nhiều cấp độ, tăng độ tin cậy và dễ bảo trì hệ thống.
 
 ## Test Types
 

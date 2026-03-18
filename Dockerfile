@@ -11,6 +11,14 @@ WORKDIR /app
 # Copy requirements first (for cache optimization)
 COPY requirements.txt .
 
+# System dependencies for building ML packages and Git-based Python deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  git \
+  build-essential \
+  python3-dev \
+  curl \
+  && rm -rf /var/lib/apt/lists/*
+
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 

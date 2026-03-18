@@ -26,7 +26,12 @@ def main():
     
     # Load data
     print("\n[1/4] Loading MovieLens 100K dataset...")
-    data = Dataset.load_builtin('ml-100k')
+    try:
+        data = Dataset.load_builtin('ml-100k')
+    except Exception:
+        print("      Dataset not found. Downloading...")
+        Dataset.download_builtin('ml-100k')
+        data = Dataset.load_builtin('ml-100k')
     print("      Dataset loaded successfully!")
     
     # Define model

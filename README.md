@@ -36,25 +36,25 @@ ddm501-lab3-starter/
 │   ├── conftest.py         # Shared fixtures
 │   ├── unit/
 │   │   ├── __init__.py
-│   │   ├── test_model.py   # Model unit tests (TODO)
-│   │   └── test_schemas.py # Schema tests (TODO)
+│   │   ├── test_model.py   # Model unit tests
+│   │   └── test_schemas.py # Schema tests
 │   ├── integration/
 │   │   ├── __init__.py
-│   │   └── test_api.py     # API tests (TODO)
+│   │   └── test_api.py     # API tests
 │   ├── data/
 │   │   ├── __init__.py
-│   │   └── test_data_quality.py  # Data tests (TODO)
+│   │   └── test_data_quality.py  # Data tests
 │   └── model/
 │       ├── __init__.py
-│       └── test_model_behavior.py  # Behavioral tests (TODO)
+│       └── test_model_behavior.py  # Behavioral tests
 ├── .github/
 │   └── workflows/
-│       ├── ci.yml          # CI pipeline (TODO)
-│       └── cd.yml          # CD pipeline (TODO)
+│       ├── ci.yml          # CI pipeline
+│       └── cd.yml          # CD pipeline
 ├── scripts/
 │   └── train_model.py      # Model training script
 ├── models/                 # Saved models
-├── .pre-commit-config.yaml # Pre-commit hooks (TODO)
+├── .pre-commit-config.yaml # Pre-commit hooks
 ├── pyproject.toml          # Project configuration
 ├── requirements.txt
 ├── requirements-dev.txt    # Development dependencies
@@ -67,12 +67,16 @@ ddm501-lab3-starter/
 ### 1. Clone and Setup
 
 ```bash
-git clone https://github.com/[your-repo]/ddm501-lab3-starter.git
-cd ddm501-lab3-starter
+git clone https://github.com/superda10/https-github.com-superda-ddm501-lab3-movie-rating.git
+cd https-github.com-superda-ddm501-lab3-movie-rating
 
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
+# Linux/Mac
+source venv/bin/activate
+
+# Windows (PowerShell)
+venv\Scripts\Activate.ps1
 
 # Install dependencies
 pip install -r requirements.txt
@@ -113,7 +117,7 @@ pre-commit run --all-files
 
 # Individual tools
 black app/ tests/
-flake8 app/ tests/
+flake8 app/ tests/ --max-line-length=100 --exclude=__pycache__
 mypy app/
 ```
 
@@ -123,21 +127,18 @@ mypy app/
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-## TODO Tasks
+## Implementation Status
 
-Complete the following files:
+Completed components:
 
-### Test Files
-- [ ] `tests/unit/test_model.py` - Unit tests for model class
-- [ ] `tests/unit/test_schemas.py` - Schema validation tests
-- [ ] `tests/integration/test_api.py` - API endpoint tests
-- [ ] `tests/data/test_data_quality.py` - Data quality tests
-- [ ] `tests/model/test_model_behavior.py` - Behavioral tests
-
-### CI/CD Files
-- [ ] `.github/workflows/ci.yml` - CI pipeline
-- [ ] `.github/workflows/cd.yml` - CD pipeline (BONUS)
-- [ ] `.pre-commit-config.yaml` - Pre-commit hooks
+- [x] `tests/unit/test_model.py` - Unit tests for model class
+- [x] `tests/unit/test_schemas.py` - Schema validation tests
+- [x] `tests/integration/test_api.py` - API endpoint tests
+- [x] `tests/data/test_data_quality.py` - Data quality tests
+- [x] `tests/model/test_model_behavior.py` - Behavioral tests
+- [x] `.github/workflows/ci.yml` - CI pipeline
+- [x] `.github/workflows/cd.yml` - CD pipeline (bonus)
+- [x] `.pre-commit-config.yaml` - Pre-commit hooks
 
 
 ## Test Strategy
@@ -199,7 +200,11 @@ def test_same_input_same_output(model):
 ### Continuous Deployment (BONUS)
 - Triggered on version tags
 - Builds and pushes Docker image
-- Deploys to staging/production
+- Creates GitHub Release
+
+CD requirements:
+- Configure repository secrets: `DOCKER_USERNAME`, `DOCKER_PASSWORD`
+- Push a tag like `v1.0.0` to trigger CD
 
 ## Grading Rubric
 
@@ -226,7 +231,7 @@ def test_same_input_same_output(model):
 
 ## Submission
 
-1. Complete all TODO items
+1. Ensure all implemented files are committed
 2. Ensure all tests pass
 3. Achieve minimum 80% coverage
 4. Push to GitHub with CI badge

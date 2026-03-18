@@ -59,7 +59,9 @@ jobs:
           python-version: '3.10'
       - name: Install dependencies
         run: |
+          python -m ensurepip --upgrade
           python -m pip install --upgrade pip
+          pip install wheel
           pip install numpy==1.26.2
           pip install --use-pep517 -r requirements.txt
           pip install mypy types-requests
@@ -82,7 +84,9 @@ jobs:
           python-version: '3.10'
       - name: Install dependencies
         run: |
+          python -m ensurepip --upgrade
           python -m pip install --upgrade pip
+          pip install wheel
           pip install numpy==1.26.2
           pip install --use-pep517 -r requirements.txt
           pip install pytest pytest-cov

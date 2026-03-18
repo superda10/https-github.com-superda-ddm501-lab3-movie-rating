@@ -45,33 +45,23 @@ class TestPredictionRequest:
     def test_missing_user_id_raises_error(self):
         """
         Test that missing user_id raises ValidationError.
-        
-        TODO: Implement this test
-        - Use pytest.raises(ValidationError)
-        - Try to create PredictionRequest without user_id
         """
-        # TODO: Implement
-        # with pytest.raises(ValidationError):
-        #     PredictionRequest(movie_id="242")
-        pass
+        with pytest.raises(ValidationError):
+            PredictionRequest(movie_id="242")
     
     def test_missing_movie_id_raises_error(self):
         """
         Test that missing movie_id raises ValidationError.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        with pytest.raises(ValidationError):
+            PredictionRequest(user_id="196")
     
     def test_missing_both_fields_raises_error(self):
         """
         Test that missing both fields raises ValidationError.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        with pytest.raises(ValidationError):
+            PredictionRequest()
     
     # =========================================================================
     # TODO 2: Implement Empty/Invalid Input Tests
@@ -80,31 +70,23 @@ class TestPredictionRequest:
     def test_empty_user_id_raises_error(self):
         """
         Test that empty user_id raises ValidationError.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        # with pytest.raises(ValidationError):
-        #     PredictionRequest(user_id="", movie_id="242")
-        pass
+        with pytest.raises(ValidationError):
+            PredictionRequest(user_id="", movie_id="242")
     
     def test_whitespace_only_user_id_raises_error(self):
         """
         Test that whitespace-only user_id raises ValidationError.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        with pytest.raises(ValidationError):
+            PredictionRequest(user_id="   ", movie_id="242")
     
     def test_none_values_raise_error(self):
         """
         Test that None values raise ValidationError.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        with pytest.raises(ValidationError):
+            PredictionRequest(user_id=None, movie_id=None)
     
     # =========================================================================
     # TODO 3: Implement Type Validation Tests
@@ -113,13 +95,10 @@ class TestPredictionRequest:
     def test_integer_user_id_converted_to_string(self):
         """
         Test how integer user_id is handled.
-        
-        TODO: Implement this test
-        - Pydantic may convert int to string or raise error
-        - Test the actual behavior
         """
-        # TODO: Implement
-        pass
+        # Pydantic will raise ValidationError for int due to type enforcement
+        with pytest.raises(ValidationError):
+            PredictionRequest(user_id=123, movie_id=456)
 
 
 class TestPredictionResponse:

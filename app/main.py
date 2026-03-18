@@ -76,20 +76,23 @@ async def health_check():
     )
 
 
+
 @app.post("/predict", response_model=PredictionResponse, tags=["Prediction"])
 async def predict(request: PredictionRequest):
     """
     Predict movie rating for a user.
-    
-    Args:
-        request: PredictionRequest with user_id and movie_id
-        
-    Returns:
-        PredictionResponse with predicted rating
     """
-    if model is None or not model.is_loaded():
+    global model
+    # Ensure model is loaded (for pytest/FastAPI TestClient)
+    if model is None:
+        try:
+            model = MovieRatingModel()
+            logger.info("Model loaded on demand in predict endpoint")
+        except Exception as e:
+            logger.error(f"Failed to load model: {e}")
+            raise HTTPException(status_code=503, detail="Model not loaded")
+    if not model.is_loaded():
         raise HTTPException(status_code=503, detail="Model not loaded")
-    
     try:
         rating = model.predict(request.user_id, request.movie_id)
         return PredictionResponse(
@@ -103,20 +106,23 @@ async def predict(request: PredictionRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+
 @app.post("/predict/batch", response_model=BatchPredictionResponse, tags=["Prediction"])
 async def predict_batch(request: BatchPredictionRequest):
     """
     Predict movie ratings for multiple user-movie pairs.
-    
-    Args:
-        request: BatchPredictionRequest with list of predictions
-        
-    Returns:
-        BatchPredictionResponse with all predicted ratings
     """
-    if model is None or not model.is_loaded():
+    global model
+    # Ensure model is loaded (for pytest/FastAPI TestClient)
+    if model is None:
+        try:
+            model = MovieRatingModel()
+            logger.info("Model loaded on demand in predict_batch endpoint")
+        except Exception as e:
+            logger.error(f"Failed to load model: {e}")
+            raise HTTPException(status_code=503, detail="Model not loaded")
+    if not model.is_loaded():
         raise HTTPException(status_code=503, detail="Model not loaded")
-    
     try:
         results = []
         for item in request.predictions:

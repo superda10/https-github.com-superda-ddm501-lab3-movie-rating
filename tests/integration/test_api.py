@@ -35,23 +35,18 @@ class TestHealthEndpoint:
     def test_health_response_has_model_loaded_field(self, test_client):
         """
         Test that health response has model_loaded field.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        # response = test_client.get("/health")
-        # data = response.json()
-        # assert "model_loaded" in data
-        pass
+        response = test_client.get("/health")
+        data = response.json()
+        assert "model_loaded" in data
     
     def test_health_model_loaded_is_boolean(self, test_client):
         """
         Test that model_loaded is a boolean value.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        response = test_client.get("/health")
+        data = response.json()
+        assert isinstance(data.get("model_loaded"), bool)
 
 
 class TestRootEndpoint:
@@ -69,12 +64,12 @@ class TestRootEndpoint:
     def test_root_contains_api_info(self, test_client):
         """
         Test that root response contains API information.
-        
-        TODO: Implement this test
-        - Check for 'name', 'version', 'docs' fields
         """
-        # TODO: Implement
-        pass
+        response = test_client.get("/")
+        data = response.json()
+        assert "name" in data
+        assert "version" in data
+        assert "description" in data
 
 
 class TestPredictEndpoint:
@@ -96,32 +91,26 @@ class TestPredictEndpoint:
     def test_predict_response_has_predicted_rating(self, test_client, sample_prediction_request):
         """
         Test that response contains predicted_rating field.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        # response = test_client.post("/predict", json=sample_prediction_request)
-        # data = response.json()
-        # assert "predicted_rating" in data
-        pass
+        response = test_client.post("/predict", json=sample_prediction_request)
+        data = response.json()
+        assert "predicted_rating" in data
     
     def test_predict_response_has_user_id(self, test_client, sample_prediction_request):
         """
         Test that response contains user_id field.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        response = test_client.post("/predict", json=sample_prediction_request)
+        data = response.json()
+        assert "user_id" in data
     
     def test_predict_response_has_movie_id(self, test_client, sample_prediction_request):
         """
         Test that response contains movie_id field.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        response = test_client.post("/predict", json=sample_prediction_request)
+        data = response.json()
+        assert "movie_id" in data
     
     def test_predict_response_rating_in_valid_range(self, test_client, sample_prediction_request):
         """

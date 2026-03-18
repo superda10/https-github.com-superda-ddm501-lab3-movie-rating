@@ -30,29 +30,17 @@ class TestModelInvariance:
     def test_same_input_same_output(self, trained_model):
         """
         Test that same input always produces same output.
-        
-        TODO: Implement this test
-        - Call predict() twice with same inputs
-        - Assert results are equal
         """
-        # TODO: Implement
-        # result1 = trained_model.predict("196", "242")
-        # result2 = trained_model.predict("196", "242")
-        # assert result1 == result2
-        pass
+        result1 = trained_model.predict("196", "242")
+        result2 = trained_model.predict("196", "242")
+        assert result1 == result2
     
     def test_multiple_calls_consistent(self, trained_model):
         """
         Test that multiple calls produce consistent results.
-        
-        TODO: Implement this test
-        - Call predict() 5 times with same input
-        - Assert all results are equal
         """
-        # TODO: Implement
-        # results = [trained_model.predict("196", "242") for _ in range(5)]
-        # assert all(r == results[0] for r in results)
-        pass
+        results = [trained_model.predict("196", "242") for _ in range(5)]
+        assert all(r == results[0] for r in results)
     
     # =========================================================================
     # TODO 2: Implement Batch Order Invariance Tests
@@ -61,33 +49,21 @@ class TestModelInvariance:
     def test_batch_order_independent(self, trained_model):
         """
         Test that batch predictions are independent of input order.
-        
-        TODO: Implement this test
-        - Create two lists of pairs in different orders
-        - Predictions for same pairs should be equal regardless of order
         """
-        # TODO: Implement
-        # pairs1 = [("196", "242"), ("186", "302")]
-        # pairs2 = [("186", "302"), ("196", "242")]
-        # 
-        # results1 = trained_model.predict_batch(pairs1)
-        # results2 = trained_model.predict_batch(pairs2)
-        # 
-        # # Results should contain same values
-        # assert set(results1) == set(results2)
-        pass
+        pairs1 = [("196", "242"), ("186", "302")]
+        pairs2 = [("186", "302"), ("196", "242")]
+        results1 = trained_model.predict_batch(pairs1)
+        results2 = trained_model.predict_batch(pairs2)
+        assert set(results1) == set(results2)
     
     def test_individual_vs_batch_same_results(self, trained_model):
         """
         Test that individual and batch predictions match.
-        
-        TODO: Implement this test
-        - Make individual predictions
-        - Make batch predictions for same pairs
-        - Results should match
         """
-        # TODO: Implement
-        pass
+        pairs = [("196", "242"), ("186", "302")]
+        individual = [trained_model.predict(u, m) for u, m in pairs]
+        batch = trained_model.predict_batch(pairs)
+        assert individual == batch
 
 
 class TestModelDirectional:
@@ -105,38 +81,29 @@ class TestModelDirectional:
     def test_predictions_are_reasonable(self, trained_model, known_user_movie_pairs):
         """
         Test that predictions are reasonably close to actual ratings.
-        
-        TODO: Implement this test
-        - For known user-movie pairs, prediction should be within 1.5 of actual
         """
-        # TODO: Implement
-        # for pair in known_user_movie_pairs:
-        #     prediction = trained_model.predict(pair["user_id"], pair["movie_id"])
-        #     actual = pair["actual_rating"]
-        #     assert abs(prediction - actual) < 1.5, f"Prediction {prediction} too far from actual {actual}"
-        pass
+        for pair in known_user_movie_pairs:
+            prediction = trained_model.predict(pair["user_id"], pair["movie_id"])
+            actual = pair["actual_rating"]
+            assert abs(prediction - actual) < 1.5, f"Prediction {prediction} too far from actual {actual}"
     
     def test_different_movies_different_predictions(self, trained_model):
         """
         Test that different movies can get different predictions.
-        
-        TODO: Implement this test
-        - Same user, different movies
-        - Predictions should potentially differ
         """
-        # TODO: Implement
-        pass
+        user_id = "196"
+        pred1 = trained_model.predict(user_id, "242")
+        pred2 = trained_model.predict(user_id, "302")
+        assert pred1 != pred2
     
     def test_different_users_different_predictions(self, trained_model):
         """
         Test that different users can get different predictions.
-        
-        TODO: Implement this test
-        - Different users, same movie
-        - Predictions should potentially differ
         """
-        # TODO: Implement
-        pass
+        movie_id = "242"
+        pred1 = trained_model.predict("196", movie_id)
+        pred2 = trained_model.predict("186", movie_id)
+        assert pred1 != pred2
 
 
 class TestMinimumFunctionality:
@@ -154,38 +121,28 @@ class TestMinimumFunctionality:
     def test_can_predict_for_known_user(self, trained_model):
         """
         Test that model can make prediction for known user.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        # prediction = trained_model.predict("196", "242")
-        # assert prediction is not None
-        # assert 1.0 <= prediction <= 5.0
-        pass
+        prediction = trained_model.predict("196", "242")
+        assert prediction is not None
+        assert 1.0 <= prediction <= 5.0
     
     def test_can_predict_for_multiple_users(self, trained_model, known_user_movie_pairs):
         """
         Test that model can make predictions for multiple known users.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        for pair in known_user_movie_pairs:
+            prediction = trained_model.predict(pair["user_id"], pair["movie_id"])
+            assert 1.0 <= prediction <= 5.0
     
     def test_predictions_not_all_same(self, trained_model, known_user_movie_pairs):
         """
         Test that not all predictions are the same value.
-        
-        TODO: Implement this test
-        - If all predictions are identical, model might be broken
         """
-        # TODO: Implement
-        # predictions = [
-        #     trained_model.predict(p["user_id"], p["movie_id"])
-        #     for p in known_user_movie_pairs
-        # ]
-        # assert len(set(predictions)) > 1, "All predictions are identical"
-        pass
+        predictions = [
+            trained_model.predict(p["user_id"], p["movie_id"])
+            for p in known_user_movie_pairs
+        ]
+        assert len(set(predictions)) > 1, "All predictions are identical"
     
     # =========================================================================
     # TODO 5: Implement Edge Case Tests
@@ -194,29 +151,24 @@ class TestMinimumFunctionality:
     def test_handles_unknown_user_gracefully(self, trained_model, unknown_users):
         """
         Test that model handles unknown users without crashing.
-        
-        TODO: Implement this test
-        - Model should either return a reasonable prediction
-          or raise a specific error (not crash unexpectedly)
         """
-        # TODO: Implement
-        # for user_id in unknown_users:
-        #     try:
-        #         prediction = trained_model.predict(user_id, "242")
-        #         # If it returns, should be valid
-        #         assert 1.0 <= prediction <= 5.0
-        #     except (ValueError, KeyError):
-        #         pass  # Acceptable to raise error
-        pass
+        for user_id in unknown_users:
+            try:
+                prediction = trained_model.predict(user_id, "242")
+                assert 1.0 <= prediction <= 5.0
+            except (ValueError, KeyError):
+                pass
     
     def test_handles_unknown_movie_gracefully(self, trained_model, unknown_movies):
         """
         Test that model handles unknown movies without crashing.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        for movie_id in unknown_movies:
+            try:
+                prediction = trained_model.predict("196", movie_id)
+                assert 1.0 <= prediction <= 5.0
+            except (ValueError, KeyError):
+                pass
 
 
 class TestModelPerformance:

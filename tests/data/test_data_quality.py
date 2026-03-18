@@ -21,33 +21,23 @@ class TestRatingDataQuality:
     def test_all_ratings_in_valid_range(self, sample_ratings):
         """
         Test that all ratings are between 1.0 and 5.0.
-        
-        TODO: Implement this test
-        - Loop through sample_ratings
-        - Assert each rating is >= 1.0 and <= 5.0
         """
-        # TODO: Implement
-        # for record in sample_ratings:
-        #     assert 1.0 <= record["rating"] <= 5.0
-        pass
+        for record in sample_ratings:
+            assert 1.0 <= record["rating"] <= 5.0
     
     def test_no_negative_ratings(self, sample_ratings):
         """
         Test that there are no negative ratings.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        for record in sample_ratings:
+            assert record["rating"] >= 0.0
     
     def test_no_ratings_above_maximum(self, sample_ratings):
         """
         Test that no ratings exceed 5.0.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        for record in sample_ratings:
+            assert record["rating"] <= 5.0
     
     # =========================================================================
     # TODO 2: Implement ID Validation Tests
@@ -56,23 +46,18 @@ class TestRatingDataQuality:
     def test_no_missing_user_ids(self, sample_ratings):
         """
         Test that no user_ids are missing (None or empty).
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        # for record in sample_ratings:
-        #     assert record["user_id"] is not None
-        #     assert record["user_id"] != ""
-        pass
+        for record in sample_ratings:
+            assert record["user_id"] is not None
+            assert record["user_id"] != ""
     
     def test_no_missing_movie_ids(self, sample_ratings):
         """
         Test that no movie_ids are missing.
-        
-        TODO: Implement this test
         """
-        # TODO: Implement
-        pass
+        for record in sample_ratings:
+            assert record["movie_id"] is not None
+            assert record["movie_id"] != ""
     
     def test_user_ids_are_strings(self, sample_ratings):
         """
